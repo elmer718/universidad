@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.examen.entidades.Estudiante;
+import com.examen.entidades.Materia;
 import com.examen.repositorio.EstudianteRepositorio;
 
 @Service
@@ -36,5 +37,16 @@ public class EstudianteServicio {
 
 	public Optional<Estudiante> listarId(int codigo) {
 		return estudianteRepositorio.findByCodigo(codigo);
+	}
+	
+	public List<Materia> materias(int codigo) {
+		Optional<Estudiante> estudianteOptional = estudianteRepositorio.findByCodigoWithMaterias(codigo);
+		if (estudianteOptional.isPresent()) {
+		    Estudiante estudiante = estudianteOptional.get();
+		    List<Materia> materias = estudiante.getMaterias();
+		    return materias;
+		}
+		return null;
+
 	}
 }

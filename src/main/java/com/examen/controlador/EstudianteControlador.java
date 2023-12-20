@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.examen.entidades.Estudiante;
+import com.examen.entidades.Materia;
 import com.examen.entidades.TipoDocumento;
 import com.examen.servicios.EstudianteServicio;
 import com.examen.servicios.TipoDocumentoServicios;
@@ -73,10 +74,11 @@ public class EstudianteControlador {
 	public String materias(@PathVariable int codigo, Model model) {
 		Optional<Estudiante> estudiante = estudianteServico.listarId(codigo);
 		TipoDocumento tipoDocumento = tipoDocumentoServicio.getId(estudiante.get().getTipoDocumento().getId()).get();
-		
+		List<Materia> materias = estudianteServico.materias(codigo);
 		model.addAttribute("estudiante", estudiante);
 		model.addAttribute("tipoDocumento", tipoDocumento);
-		return "";
+		model.addAttribute("materias", materias);
+		return "matricula.html";
 	}
 
 }

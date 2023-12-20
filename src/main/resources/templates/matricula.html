@@ -7,9 +7,20 @@
 
 </head>
 <body>
+
+	<header>
+		<div class="navbar navbar-expand-md navbar-dark" style="background-color: #129b9b">
+			<ul class="navbar-nav">
+				<li><a th:href="@{/estudiante/listar}" class="nav-link">Estudiantes</a></li>
+				<li><a th:href="@{/materia/listar}" class="nav-link">Materias</a></li>
+			</ul>
+		</div>
+	</header>
+	<br>
 	
-	<div class="container mt-4">
-		<div class="col-sm-6">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-4">
 
 			<form th:object="${estudiante}" method="POST">
 				<div class="card">
@@ -19,36 +30,67 @@
 					<div class="card-body">
 						<div class="form-group">
 							<label>Codigo</label>
-							<input th:field="*{codigo}" type="text" class="form-control">
+							<input th:field="*{codigo}" type="text" class="form-control" readonly>
 						</div>
 						
-						<div th:if="${tipoDocumento != null}">
-			                <select name="tipoDocumentoId" class="form-select" aria-label="Default select example">
-							        <option selected th:value="${tipoDocumento.id}" th:text="${tipoDocumento.descripcion}"></option>
-							</select>
-			            </div>
-
+						<div class="form-group">
+							<label>Tipo de Documento</label>
+							<input th:field="*{tipoDocumento.descripcion}" type="text" class="form-control" readonly>
+						</div>
+						
 						<div class="form-group">
 							<label>Numero de Documento</label>
-							<input th:field="*{documento}" type="text" class="form-control">
+							<input th:field="*{documento}" type="text" class="form-control" readonly>
 						</div>
 						<div class="form-group">
 							<label>Nombre</label>
-							<input th:field="*{nombre}" type="text" class="form-control">
+							<input th:field="*{nombre}" type="text" class="form-control" readonly>
 						</div>
 						<div class="form-group">
 							<label>Apellido</label>
-							<input th:field="*{apellido}" type="text" class="form-control">
+							<input th:field="*{apellido}" type="text" class="form-control" readonly>
 						</div>
 						<div class="form-group">
 							<label>E-mail</label>
-							<input th:field="*{email}" type="text" class="form-control">
+							<input th:field="*{email}" type="text" class="form-control" readonly>
 						</div>
 					</div>
 					
 				</div>
 			</form>
 
+			</div>
+		
+		<div class="col-sm-8">
+			
+			<br>
+				<h3 class="text-center">Listado de Materias</h3>
+				<br>
+				<div class="container text-left">
+					<a th:href="@{/}" class="btn btn-success">Agregar Materia</a>
+				</div>
+				<br>
+				<table class="table table-bordered table-hover">
+					<thead class="table-dark">
+						<tr>
+							<th>Codigo</th>
+							<th>Nombre</th>
+							<th>Acciones</th>
+						</tr>
+					</thead>
+					<tbody>
+							<tr th:each="materia:${materias}">
+								<td th:text="${materia.codigo}"></td>
+								<td th:text="${materia.nombre}"></td>
+								<td>
+								<a th:href="@{//editar/}+${materia.codigo}" class="btn btn-warning">Editar</a>
+								<a th:href="@{//eliminar/}+${materia.codigo}" class="btn btn-danger">Eliminar</a>
+								</td>
+							</tr>
+					</tbody>
+				</table>
+		
+			</div>
 		</div>
 	</div>
 
