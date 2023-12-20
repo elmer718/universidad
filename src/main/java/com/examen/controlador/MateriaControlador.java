@@ -32,7 +32,7 @@ public class MateriaControlador {
 	@GetMapping("/new")
 	public String agregar(Model model) {
 		model.addAttribute("materia", new Materia());
-		return "";
+		return "formMateria.html";
 	}
 	
 	@PostMapping("/save")
@@ -45,7 +45,7 @@ public class MateriaControlador {
 	public String editar(@PathVariable int codigo, Model model) {
 		Optional<Materia> materia = materiaServicio.listarId(codigo);
 		model.addAttribute("materia", materia);
-		return "";
+		return "formMateria.html";
 	}
 	
 	@GetMapping("/eliminar/{codigo}")

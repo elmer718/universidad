@@ -68,5 +68,15 @@ public class EstudianteControlador {
 		estudianteServico.delete(codigo);
 		return "redirect:/estudiante/listar";
 	}
+	
+	@GetMapping("/materia/{codigo}")
+	public String materias(@PathVariable int codigo, Model model) {
+		Optional<Estudiante> estudiante = estudianteServico.listarId(codigo);
+		TipoDocumento tipoDocumento = tipoDocumentoServicio.getId(estudiante.get().getTipoDocumento().getId()).get();
+		
+		model.addAttribute("estudiante", estudiante);
+		model.addAttribute("tipoDocumento", tipoDocumento);
+		return "";
+	}
 
 }
